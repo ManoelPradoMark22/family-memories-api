@@ -47,9 +47,6 @@
 - [x] Não deve ser possível adicionar uma foto a um album se ela já faz parte dele.
 - [x] Não deve ser possível adicionar uma foto a um album se o usuario nao faz parte dele.
 
-
-- [] Não deve ser possível
-
 ---
 
 ## TO-DO

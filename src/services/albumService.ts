@@ -34,3 +34,15 @@ export const addPhotoToAlbum = async (albumId: number, photoId: number, descript
   }
   return AlbumPhoto.create({ album_id: albumId, photo_id: photoId, description });
 };
+
+export const removePhotoFromAlbum = async (albumId: number, photoId: number) => {
+  const association = await AlbumPhoto.findOne({
+    where: { album_id: albumId, photo_id: photoId },
+  });
+
+  if (!association) {
+    throw new Error('Photo not found in the album');
+  }
+
+  await association.destroy();
+};

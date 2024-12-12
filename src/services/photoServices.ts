@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import Photo from '../models/Photo';
 import { v4 as uuidv4 } from 'uuid';
-import { error } from 'console';
 import sequelize from '../config/database';
 
 const uploadPath = path.join(__dirname, '..', 'uploads', 'photos');

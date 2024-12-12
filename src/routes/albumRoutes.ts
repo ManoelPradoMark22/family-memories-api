@@ -1,7 +1,7 @@
 import { ZodError } from 'zod';
 import express from 'express'
 import { addPhotoToAlbumSchema, createAlbumSchema, idParamSchema, updateAlbumSchema } from '../utils/validation';
-import { addPhotoToAlbum, createAlbum, getAlbumById, getAllAlbums } from '../services/albumService';
+import { addPhotoToAlbum, createAlbum, getAlbumById, getAllAlbums, removePhotoFromAlbum } from '../services/albumService';
 import { getUserById } from '../services/userService';
 import { getFamilyById, isUserInFamily } from '../services/familyService';
 import { getPhotoById } from '../services/photoServices';
@@ -132,5 +132,35 @@ albumRouter.post('/album/:albumId/photo/:photoId', async (req, res) => {
   }
 });
 
+albumRouter.delete('/album/:albumId/photo/:photoId', async (req, res) => {
+  try {
+    const { albumId } = idParamSchema('albumId').parse(req.params);
+    const { photoId } = idParamSchema('photoId').parse(req.params);
+
+    const album = await getAlbumById(albumId); 
+
+    if(!album) {
+      res.status(404).json({ error: "Album not found"});
+      return;
+    }
+
+    const photo = await getPhotoById(photoId); 
+
+    if(!photo) {
+      res.status(404).json({ error: "Photo not found"});
+      return;
+    }
+
+    await removePhotoFromAlbum(albumId, photoId);
+
+    res.status(200).json({ message: 'Photo removed from album successfully' });
+  } catch (err: any) {
+    if (err instanceof ZodError) {
+      res.status(400).json({ error: err.errors });
+      return;
+    }
+    res.status(500).json({ error: err.message });
+  }
+});
 
 export default albumRouter;
