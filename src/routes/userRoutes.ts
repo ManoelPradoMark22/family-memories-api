@@ -5,6 +5,21 @@ import { ZodError } from 'zod';
 
 const userRouter = express.Router();
 
+userRouter.get('/user/:id', async (req, res) => {
+  try {
+    const { id } = idParamSchema('id').parse(req.params);
+
+    const user = await getUserById(id);
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+    res.status(200).json(user);
+  } catch (err: any) {
+    res.status(500).json({ error: err?.message ?? 'Error searching for users' });
+  }
+});
+
 userRouter.get('/user', async (req, res) => {
   try {
     const users = await getAllUsers();

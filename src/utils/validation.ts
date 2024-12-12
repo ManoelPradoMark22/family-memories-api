@@ -2,6 +2,9 @@ import { z } from 'zod';
 
 const idValidation = (paramName: string) => z.number().int(`${paramName} must be a positive integer`).positive(`${paramName} must be a positive integer`)
 
+const descriptionValidation = z.string().max(500, 'Description is too long').optional();
+const titleValidation = z.string().min(1, 'Title is required').max(100, 'Title is too long');
+
 export const createUserSchema = z.object({
   name: z.string().min(1),
   birthday: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format (YYYY-MM-DD)'),
@@ -21,13 +24,13 @@ export const updateUserSchema = z.object({
 });
 
 export const updateFamilySchema = z.object({
-  title: z.string().min(1, 'Title is required').max(100, 'Title is too long'),
-  description: z.string().max(500, 'Description is too long').optional(),
+  title: titleValidation,
+  description: descriptionValidation
 });
 
 export const createFamilySchema = z.object({
-  title: z.string().min(1, 'Title is required').max(100, 'Title is too long'),
-  description: z.string().max(500, 'Description is too long').optional(),
+  title: titleValidation,
+  description: descriptionValidation
 });
 
 export const addUserToFamilySchema = z.object({
@@ -37,13 +40,13 @@ export const addUserToFamilySchema = z.object({
 export const createAlbumSchema = z.object({
   family_id: idValidation("family_id"),
   created_by: idValidation("created_by (user_id)"),
-  title: z.string().min(1, 'Title is required').max(100, 'Title is too long'),
-  description: z.string().max(500, 'Description is too long').optional(),
+  title: titleValidation,
+  description: descriptionValidation
 });
 
 export const updateAlbumSchema = z.object({
-  title: z.string().min(1, 'Title is required').max(100, 'Title is too long'),
-  description: z.string().max(500, 'Description is too long').optional(),
+  title: titleValidation,
+  description: descriptionValidation
 });
 
 export const idParamSchema = (paramName: string) =>
@@ -51,4 +54,9 @@ export const idParamSchema = (paramName: string) =>
     [paramName]: z.string().transform((val) => Number(val)),
   }).refine((data) => idValidation(paramName).safeParse(data[paramName]).success, {
     message: `${paramName} must be a positive integer`,
-  });
+  }
+);
+
+export const addPhotoToAlbumSchema = z.object({
+  description: descriptionValidation
+});

@@ -2,3 +2,5 @@
 node_modules
 dist
 database.sqlite
+src/uploads/photos/*
+!src/uploads/photos/.gitkeep

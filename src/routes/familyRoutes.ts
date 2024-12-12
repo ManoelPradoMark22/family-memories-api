@@ -81,6 +81,10 @@ familyRouter.get('/family/:id', async (req, res) => {
     }
     res.status(200).json(family);
   } catch (err: any) {
+    if (err instanceof ZodError) {
+      res.status(400).json({ error: err.errors });
+      return
+    }
     res.status(500).json({ error: err?.message ?? "Error searching for this family" });
   }
 });

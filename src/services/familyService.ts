@@ -19,6 +19,13 @@ export const getFamilyById = async (id: number) => {
   return family;
 };
 
+export const isUserInFamily = async (userId: number, familyId: number) => {
+  const member = await UserFamily.findOne({
+    where: { user_id: userId, family_id: familyId },
+  });
+  return !!member;
+};
+
 export const addUserToFamily = async (familyId: number, userId: number) => {
   const existingFamily = await getFamilyById(familyId);
 
@@ -32,7 +39,7 @@ export const addUserToFamily = async (familyId: number, userId: number) => {
     throw new Error('User not found');
   }
 
-  const existingRelation = await UserFamily.findOne({ where: { family_id: familyId, user_id: userId } });
+  const existingRelation = await isUserInFamily(familyId, userId);
 
   if (existingRelation) {
     throw new Error('User already belongs to this family');
