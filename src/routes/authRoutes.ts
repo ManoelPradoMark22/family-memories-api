@@ -19,7 +19,7 @@ authRouter.post('/login', async (req, res) => {
       res.status(400).json({ error: err.errors });
       return
     }
-    res.status(400).json({ error: err?.message ?? 'Error when trying to log in' });
+    res.status(500).json({ error: err?.message ?? 'Error when trying to log in' });
   }
 });
 

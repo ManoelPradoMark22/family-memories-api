@@ -1,6 +1,6 @@
 import express from 'express';
-import { createUserSchema } from '../utils/validation';
-import { createUser, getAllUsers, getUserByEmail } from '../services/userService';
+import { createUserSchema, idParamSchema, updateUserSchema } from '../utils/validation';
+import { createUser, getAllUsers, getUserByEmail, getUserById } from '../services/userService';
 import { ZodError } from 'zod';
 
 const userRouter = express.Router();
@@ -34,7 +34,30 @@ userRouter.post('/user', async (req, res) => {
       res.status(400).json({ error: err.errors });
       return
     }
-    res.status(400).json({ error: err?.message ?? 'Error registering user' });
+    res.status(500).json({ error: err?.message ?? 'Error registering user' });
+  }
+});
+
+userRouter.put('/user/:id', async (req, res) => {
+  try {
+    const { id } = idParamSchema('id').parse(req.params);
+
+    const data = updateUserSchema.parse(req.body);
+
+    const user = await getUserById(id);
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    const updatedUser = await user.update(data);
+    res.status(200).json(updatedUser);
+  } catch (err: any) {
+    if (err instanceof ZodError) {
+      res.status(400).json({ error: err.errors });
+      return
+    }
+    res.status(500).json({ error: err?.message ?? 'Error updating user' });
   }
 });
 
