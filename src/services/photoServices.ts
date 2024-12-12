@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import Photo from '../models/Photo';
 import { v4 as uuidv4 } from 'uuid';
+import { error } from 'console';
+import sequelize from '../config/database';
 
 const uploadPath = path.join(__dirname, '..', 'uploads', 'photos');
 
@@ -42,23 +44,19 @@ export const getPhotosByUserId = async (userId: number) => {
   }
 };
 
-export const deletePhoto = async (photoId: number) => {
+export const deletePhoto = async (photo: Photo) => {
+  const transaction = await sequelize.transaction();
+  
   try {
-    const photo = await Photo.findByPk(photoId);
-    
-    if (!photo) {
-      throw new Error('Photo not found');
-    }
-
     const filePath = path.join(__dirname, '..', 'uploads', 'photos', path.basename(photo.getDataValue('url')));
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }
 
-    await photo.destroy();
-
-    return true;
+    await photo.destroy({ transaction });
+    await transaction.commit();
   } catch (err: any) {
-    throw new Error('Error deleting photo');
+    await transaction.rollback();
+    throw new Error(err?.message ?? 'Error deleting photo');
   }
 };

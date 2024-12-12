@@ -19,6 +19,7 @@ AlbumPhoto.init({
       model: 'photos',
       key: 'id',
     },
+    onDelete: 'CASCADE',
   },
   description: {
     type: DataTypes.STRING,

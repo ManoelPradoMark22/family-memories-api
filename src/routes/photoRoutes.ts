@@ -73,14 +73,14 @@ photoRouter.delete('/photo/:photoId', async (req, res) => {
   try {
     const { photoId } = idParamSchema('photoId').parse(req.params);
 
-    const existingPhoto = getPhotoById(photoId);
+    const existingPhoto = await getPhotoById(photoId);
 
     if(!existingPhoto) {
       res.status(404).json({ error: 'Photo not found' });
       return;
     }
 
-    await deletePhoto(photoId);
+    await deletePhoto(existingPhoto);
     
     res.status(200).json({ message: 'Photo deleted successfully' });
   } catch (err: any) {

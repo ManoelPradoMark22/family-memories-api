@@ -20,3 +20,13 @@ export interface AlbumAttributes {
 }
 
 export type AlbumCreationAttributes = Omit<AlbumAttributes, 'id' | 'created_at' | 'updated_at'>;
+
+export interface PhotoAttributes {
+  id: number;
+  name: string;
+  description?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export type PhotoCreationAttributes = Omit<PhotoAttributes, 'id' | 'created_at' | 'updated_at'>;
