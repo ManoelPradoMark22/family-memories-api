@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'; 
 import { ENV } from './config/env';
 
 import userRouter from './routes/userRoutes'
@@ -11,6 +12,14 @@ import sequelize from './config/database';
 import './models/initModels';
 
 const app = express();
+
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+  })
+);
 
 app.use(express.json());
 
