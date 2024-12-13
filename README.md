@@ -10,6 +10,17 @@
 
 ---
 
+# Libs and Technologies:
+
+- [x] sqlite
+- [x] sequelize (ORM)
+- [x] zod (validations)
+- [x] express
+- [x] bcrypt
+- [x] multer
+
+---
+
 ## Requirements
 
   # User
