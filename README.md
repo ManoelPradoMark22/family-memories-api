@@ -1,3 +1,7 @@
+- npm i
+- npm run dev
+- im using sqlite, so, if some error occurs, you can delete the database.sqlite (in the root) and run this command again: npm run dev
+
 ### Requisitos
 
   # Usuário
