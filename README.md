@@ -37,6 +37,7 @@
 
   # Usuário
 - [x] Não deve ser possível cadastrar um usuário com email já existente
+- [x] Não deve ser possível retornar o password na response ao fazer: getProfile, createUser, editUser
 
   # Login
 - [x] Não deve ser possível logar com email inexistente

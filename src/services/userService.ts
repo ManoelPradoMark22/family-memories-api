@@ -3,7 +3,10 @@ import { UserCreationAttributes } from '../models/types';
 
 export const createUser = async (data: any) => {
   const createUser = await User.create(data);
-  return createUser;
+
+  const { password, ...userWithoutPassword } = createUser.get({ plain: true });
+
+  return userWithoutPassword;
 };
 
 export const getUserById = async (id: number) => {
@@ -18,13 +21,12 @@ export const getUserProfileById = async (id: number) => {
   return user;
 };
 
-export const updateUser = async (id: number, updateData: Partial<UserCreationAttributes>) => {
-  const user = await User.findByPk(id);
-  if (!user) {
-    throw new Error('User not found')
-  }
+export const updateUser = async (user: User, updateData: Partial<UserCreationAttributes>) => {
+  const updatedUser = await user.update(updateData);
 
-  return await user.update(updateData);
+  const { password, ...userWithoutPassword } = updatedUser.get({ plain: true });
+
+  return userWithoutPassword;
 };
 
 export const getUserByEmail = async (email: string): Promise<User | null> => {

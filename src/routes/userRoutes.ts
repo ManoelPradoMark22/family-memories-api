@@ -1,6 +1,6 @@
 import express from 'express';
 import { createUserSchema, idParamSchema, updateUserSchema } from '../utils/validation';
-import { createUser, getAllUsers, getUserByEmail, getUserById, getUserProfileById } from '../services/userService';
+import { createUser, getAllUsers, getUserByEmail, getUserById, getUserProfileById, updateUser } from '../services/userService';
 import { ZodError } from 'zod';
 
 const userRouter = express.Router();
@@ -81,7 +81,7 @@ userRouter.put('/user/:id', async (req, res) => {
       return;
     }
 
-    const updatedUser = await user.update(data);
+    const updatedUser = await updateUser(user, data);
     res.status(200).json(updatedUser);
   } catch (err: any) {
     if (err instanceof ZodError) {
