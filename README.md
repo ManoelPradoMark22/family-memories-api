@@ -2,6 +2,8 @@
 - npm run dev
 - im using sqlite, so, if some error occurs, you can delete the database.sqlite (in the root) and run this command again: npm run dev
 
+- Postman Collection: https://github.com/ManoelPradoMark22/family-memories-api/blob/master/Family-Memories.postman_collection.json
+
 ### Requisitos
 
   # Usuário
