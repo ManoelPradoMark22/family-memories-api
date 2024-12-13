@@ -38,6 +38,7 @@ photoRouter.get('/photo/:userId/user', async (req, res) => {
     }
 
     const photos = await getPhotosByUserId(userId);
+
     res.status(200).json(photos);
   } catch (err: any) {
     if (err instanceof ZodError) {

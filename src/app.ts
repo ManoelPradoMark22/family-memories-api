@@ -10,6 +10,7 @@ import photoRouter from './routes/photoRoutes';
 
 import sequelize from './config/database';
 import './models/initModels';
+import path from 'path';
 
 const app = express();
 
@@ -33,6 +34,8 @@ app.use(
 );
 
 app.use(express.json());
+
+app.use('/uploads/photos', express.static(path.join(__dirname, 'uploads/photos')));
 
 app.use('/', userRouter, authRouter, familyRouter, albumRouter, photoRouter);
 

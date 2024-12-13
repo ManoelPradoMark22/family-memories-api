@@ -1,5 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/database';
+import { ENV } from '../config/env';
 
 class Photo extends Model {}
 
@@ -22,6 +23,11 @@ Photo.init(
     url: {
       type: DataTypes.STRING,
       allowNull: false,
+      get() {
+        const rawUrl = this.getDataValue('url');
+        const baseUrl = `http://localhost:${ENV.PORT}`;
+        return `${baseUrl}${rawUrl}`;
+      }
     }
   },
   {
