@@ -11,6 +11,13 @@ export const getUserById = async (id: number) => {
   return user;
 };
 
+export const getUserProfileById = async (id: number) => {
+  const user = await User.findByPk(id, {
+    attributes: ['id', 'name', 'email', 'birthday', 'avatar'],
+  });
+  return user;
+};
+
 export const updateUser = async (id: number, updateData: Partial<UserCreationAttributes>) => {
   const user = await User.findByPk(id);
   if (!user) {

@@ -3,6 +3,8 @@
   # Usuário
 - [x] Deve ser possível criar um usuário
 - [x] Deve ser possível editar um usuário
+- [x] Deve ser possível listar um usuário pelo id
+- [x] Deve ser possível retornar o Profile do usuário pelo id (dados exceto password)
 - [x] Deve ser possível listar todos os usuários
 
   # Login
