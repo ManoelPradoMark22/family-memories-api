@@ -1,6 +1,10 @@
+- check if the ENABLE_CORS_URL_FRONTEND in .env matches the URL the frontend is running on
 - npm i
 - npm run dev
 - im using sqlite, so, if some error occurs, you can delete the database.sqlite (in the root) and run this command again: npm run dev
+
+- Fronted: https://github.com/ManoelPradoMark22/family-memories-frontend?tab=readme-ov-file
+
 
 - Postman Collection: https://github.com/ManoelPradoMark22/family-memories-api/blob/master/Family-Memories.postman_collection.json
 
