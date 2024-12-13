@@ -84,6 +84,7 @@
   # Album-Photo
 - [] It must be possible for a user to edit the description of a photo in an album they posted
 - [] It must not be possible for a user to edit the description of a photo in an album posted by someone else.
+- [] File Validation (only allows images png, jpg etc and define max size)
 
 
 ---
@@ -152,4 +153,5 @@
   # Álbum-Foto
 - [] Deve ser possível editar a descrição de uma foto em um álbum pelo usuário que postou
 - [] Não deve ser possível editar a descrição de uma foto em um álbum por um usuário diferente do que postou.
+- [] Validação de arquivo (apenas permita png, jpg etc e defina um tamanho máximo)
 
