@@ -13,9 +13,20 @@ import './models/initModels';
 
 const app = express();
 
+const allowedOrigins = [
+  ENV.ENABLE_CORS_URL_FRONTEND,
+  ENV.ENABLE_CORS_URL_PLAWRIGHT
+]
+
 app.use(
   cors({
-    origin: ENV.ENABLE_CORS_URL,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
   })

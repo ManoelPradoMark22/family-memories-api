@@ -1,4 +1,4 @@
-.env
+##.env - there is no sensisitive information, thats why im commenting
 node_modules
 dist
 database.sqlite
